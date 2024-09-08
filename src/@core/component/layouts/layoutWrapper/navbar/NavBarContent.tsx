@@ -79,7 +79,7 @@ const NavBarContent = ({ setMenuVisibility, setSkin, skin }: Props) => {
               <Menu className="ficon" />
             </Nav.Link>
             <div className="clinic">
-              <span className="font-medium-2">Clínica el sol</span>
+              <span className="font-medium-2">Noticias058</span>
             </div>
           </Nav>
           <BottonDarkMode skin={skin} setSkin={setSkin} />
