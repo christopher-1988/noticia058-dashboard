@@ -23,7 +23,7 @@ const Notifiaciones = () => {
 
   return (
     <>
-      <h2 className="my-2">Notifiaciones</h2>
+      <h2 className="my-2">Notificaciones</h2>
       <Row>
         <Col>
           <Card>
