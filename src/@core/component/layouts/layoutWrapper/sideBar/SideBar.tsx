@@ -90,7 +90,7 @@ const WrapperSideBar = ({ menuCollapsed, skin, setMenuCollapsed }: Props) => {
               menuCollapsed={menuCollapsed}
               menuHover={menuHover}
               text="Notificaciones"
-              url="bieni-wallet/pacientes"
+              url="notificaciones"
             />
           </Menu>
         </Sidebar>
