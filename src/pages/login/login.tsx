@@ -33,8 +33,8 @@ const Login = () => {
 
   // Y cambiar la condición a:
   const { value, handleSubmit, handleInput } = useForm({
-    email: "chistopher",
-    password: "W>nn_9u3/7*A",
+    email: "noticia058@gmail.com",
+    password: "123456",
   });
 
   const onSubmit = async (value: inputs) => {
