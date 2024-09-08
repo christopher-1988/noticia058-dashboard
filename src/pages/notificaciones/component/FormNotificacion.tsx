@@ -41,11 +41,6 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
     const form: any = new FormData();
     form.append("op", "usuario");
     form.append("email", value.email);
-    form.append("lastName", value.lastName);
-    form.append("name", value.name);
-    form.append("password", value.password);
-    form.append("phone", value.phone);
-    form.append("state", value.state);
     usuarioMutation.mutate(form, {
       onSuccess: (rsp) => {
         const { data, status } = rsp;

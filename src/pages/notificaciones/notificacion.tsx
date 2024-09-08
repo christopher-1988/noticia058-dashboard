@@ -6,6 +6,8 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import { useToggle } from "@src/hooks";
 //Component
 import FormNotificacion from "./component/FormNotificacion";
+//Component
+import TableNoticicacion from "./component/TableNotificacion";
 
 interface Params {
   state: string;
@@ -26,9 +28,12 @@ const Notifiaciones = () => {
         <Col>
           <Card>
             <Card.Header className="d-flex">
-              <Button onClick={toggle}>Crear notificacion</Button>
+              <Button onClick={toggle}>Crear notificación</Button>
             </Card.Header>
-            <Card.Body>cuerpo</Card.Body>
+            <Card.Body>
+              {" "}
+              <TableNoticicacion params={params} setSelection={() => {}} />
+            </Card.Body>
           </Card>
         </Col>
         <FormNotificacion state={state} handleToggle={toggle} />
