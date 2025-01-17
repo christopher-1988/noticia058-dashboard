@@ -143,7 +143,10 @@ const WrapperVerticalLayout = () => {
           } navbar-shadow`
         )}
       >
-        <div className="navbar-container d-flex content">
+        <div
+          className="navbar-container d-flex content"
+          style={{ borderRadius: " 0.428rem" }}
+        >
           {/*<NavbarComponent
             setMenuVisibility={setMenuVisibility}
             skin={skin}

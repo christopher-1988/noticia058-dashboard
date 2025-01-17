@@ -1,49 +1,22 @@
 import axio from "axios";
-import { templateData } from "@src/helpers/data";
-//Token
-const TOKEN_KEY = process.env.BIENI_TOKEN_KEY;
-//Url bieniweb
-const BASE_URL_DEV = process.env.BIENI_URL_DEV;
-const BASE_URL_PROD = process.env.BIENI_URL_PROD;
-const BASE_URL_LOCAL = process.env.BIENI_URL_LOCAL;
-//Url bieni
-const BASE_URL_WALLET_DEV = process.env.BIENI_WALLET_DES;
-const BASE_URL_WALLET_PROD = process.env.BIENI_WALLET_PROD;
-
-const entornos = {
-  local: BASE_URL_LOCAL,
-  dev: BASE_URL_DEV,
-  prod: BASE_URL_PROD,
-};
-
-const entornosBieni = {
-  dev: BASE_URL_WALLET_DEV,
-  prod: BASE_URL_WALLET_PROD,
-};
 
 const service = axio.create({
-  baseURL: entornos["prod"],
+  baseURL: "http://localhost/noticia058backend/",
 });
 
-const serviceBieni = axio.create({
-  baseURL: "https://bieniwallet.com/bieniback/",
-});
-// interceptor;
+// Interceptor de solicitudes
 service.interceptors.request.use(
-  (config) => {
-    if (config.url === endpoint.login) {
-      return config;
-    }
-
-    const token = localStorage.getItem(TOKEN_KEY!) ?? "";
-
-    if (token !== "") {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
-
-    return config;
+  (request) => {
+    // Agregar un parámetro a la URL de la solicitud
+    request.params = {
+      ...request.params,
+      // Cambia esto por el nombre y valor de tu parámetro
+      imestamp: new Date().getTime(),
+    };
+    return request;
   },
-  function (error) {
+  (error) => {
+    // Manejo de errores en la solicitud
     return Promise.reject(error);
   }
 );
@@ -53,20 +26,42 @@ const buildUrl = (url: string, op: string, parameters = {}) => {
   return `${url}?op=${op}&${queryString}`;
 };
 
-const endpoint = {
-  paciente: "/src/pacientes.php",
-  login: "src/login.php",
-  usuario: "/src/usuario/",
-  pacientes: "/src/paciente/",
-  difusion: "src/difusion/",
-  mensajes: "src/mensaje/",
-  plan: "src/plan/",
-  cliente: "src/bienimed-cliente/",
-  bienimedNivel: "src/bienimed-nivel/",
-  bienimedUsuario: "src/bienimed-usuario/",
-  bienimedEspecialidad: "src/bienimed-especialidad/",
-  bienimedNavegacion: "src/bienimed-navegacion/",
-  bienimedCenter: "src/bienimed-centro/",
+const DEFAULT_RECORD_RESPONSE = {
+  data: [],
+  recordsTotals: 0,
+  recordsFiltered: 0,
+  current_page: 0,
 };
 
-export { service, serviceBieni, buildUrl, templateData, endpoint };
+const HTTP_STATUS = {
+  // 2XX Success
+  OK: 200,
+  CREATED: 201,
+  NO_CONTENT: 204,
+  // 3XX Redirection
+  MULTIPLE_CHOICES: 300,
+  MOVED_PERMANENTLY: 301,
+  FOUND: 302,
+  SEE_OTHER: 303,
+  NOT_MODIFIED: 304,
+  TEMPORARY_REDIRECT: 307,
+  PERMANENT_REDIRECT: 308,
+  // 4XX Client Errors
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  // 5XX Server Errors
+  INTERNAL_SERVER: 500,
+  NOT_IMPLEMENTED: 501,
+  BAD_GATEWAY: 502,
+  SERVICE_UNAVAILABLE: 503,
+};
+
+const ENPOINT = {
+  notification: "/src/controllers/notification/index..php",
+  user: "/src/controllers/user/index.php",
+  version: "/src/version",
+};
+
+export { service, buildUrl, HTTP_STATUS, DEFAULT_RECORD_RESPONSE, ENPOINT };

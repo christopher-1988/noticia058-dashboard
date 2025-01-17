@@ -5,7 +5,7 @@ export interface ResponseNotificacion {
   //item: Record<string, unknown> | undefined;
 }
 
-export interface ResponseData {
+export interface  ResponseData {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any[];
   recordsTotals: number | string;

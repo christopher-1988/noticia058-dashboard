@@ -2,8 +2,6 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 //Model
 import { ResponseData } from "@models/response.model";
-//Response
-import { templateData } from "@src/helpers/data";
 
 type DateOrString = string | Date | null | undefined;
 
@@ -38,7 +36,7 @@ export const adapterDateTime = (date: DateOrString, formt: string) => {
 
 export const adapterResponseData = (response: ResponseData): ResponseData => {
   if (!response || !response.data) {
-    return templateData;
+    return { data: [], recordsTotals: 0, recordsFiltered: 0, currentPage: 0 };
   }
   return response;
 };

@@ -2,18 +2,15 @@ import { useState, useEffect } from "react";
 import { Sidebar, Menu } from "react-pro-sidebar";
 import classnames from "classnames";
 import { Menu as MenuFeather } from "react-feather";
-import themeConfig from "@src/config/theme.config";
-import layoutGrid from "../../../../../assets/sidebar/layout-grid.svg";
+//import themeConfig from "@src/config/theme.config";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+//Assets
 import users from "../../../../../assets/sidebar/users.svg";
-import listCheck from "../../../../../assets/sidebar/list-check.svg";
-import reportSearch from "../../../../../assets/sidebar/report-search.svg";
-import speakerphone from "../../../../../assets/sidebar/speakerphone.svg";
-import moneyReport from "../../../../../assets/sidebar/money-report.svg";
-import brand from "../../../../../assets/sidebar/brand.svg";
-import shape from "../../../../../assets/sidebar/shape.svg";
-import point from "../../../../../assets/sidebar/point.svg";
-
+//Component
 import MenuItemSidebar from "./MenuItemSidebar";
+import MenuItemSidebarCustom from "./MenuItemSidebarCustom";
+import { faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   skin: string;
@@ -34,6 +31,7 @@ const WrapperSideBar = ({ menuCollapsed, skin, setMenuCollapsed }: Props) => {
     setIsMounted(true);
     return () => setIsMounted(false);
   }, []);
+
   const onMouseEnter = () => {
     setMenuHover(true);
   };
@@ -69,29 +67,37 @@ const WrapperSideBar = ({ menuCollapsed, skin, setMenuCollapsed }: Props) => {
               ) : (
                 <img src={themeConfig.app.appName} alt="logo" />
               )*/}
+
               <MenuFeather
                 onClick={() => setMenuCollapsed(!menuCollapsed)}
                 className="ficon"
                 size={20}
               />
             </div>
+            {/*Notificaciones*/}
 
-            {/* biniwallet  */}
-            <span
-              className={` menu-title-divider ${
-                menuHover || !menuCollapsed ? "margin-small-2" : "margin-small"
-              } `}
-            >
-              Menú
-            </span>
-            {/* pacientes  */}
+            <MenuItemSidebarCustom
+              menuCollapsed={menuCollapsed}
+              menuHover={menuHover}
+              icon={<FontAwesomeIcon icon={faEnvelope} size="lg" />}
+              text="Notificaciones"
+              url="/notificaciones"
+            />
+            <MenuItemSidebarCustom
+              menuCollapsed={menuCollapsed}
+              menuHover={menuHover}
+              icon={<FontAwesomeIcon icon={faCodeBranch} size="lg" />}
+              text="Control versiones"
+              url="/control-versiones"
+            />
             <MenuItemSidebar
               icon={users}
               menuCollapsed={menuCollapsed}
               menuHover={menuHover}
-              text="Notificaciones"
-              url="notificaciones"
+              text="Usuarios"
+              url="/usuarios"
             />
+            {/* */}
           </Menu>
         </Sidebar>
       </div>

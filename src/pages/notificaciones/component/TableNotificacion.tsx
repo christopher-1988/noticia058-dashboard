@@ -8,8 +8,8 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { UserDataRow } from "@src/models/user.model";
 //Component
 import { WrapperDataTable } from "@src/component/wrapper";
-//Service
-import { getUsuarios } from "@services/usuario.service";
+//Hook
+import { useFechingNotification } from "../hook/useNotification";
 //Model
 import { RowNotificacion } from "@src/models/notificacion";
 //Data
@@ -29,11 +29,12 @@ const TableNoticicacion: React.FC<Props> = ({ params, setSelection }) => {
   const [page, setPage] = useState<number>(1);
   const [countPerPage, setCountPerPage] = useState<number>(10);
   //Solicitud
-  const { data, isError, isLoading } = useQuery({
+  /*const { data, isError, isLoading } = useQuery({
     queryKey: ["usuarios", page, params],
     queryFn: () => simulateApiCall({ page, ...params }),
     placeholderData: keepPreviousData,
-  });
+  });*/
+  const { data, isError, isLoading } = useFechingNotification();
   //Column
   const columns: TableColumn<RowNotificacion>[] = [
     {

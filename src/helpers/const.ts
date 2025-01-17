@@ -1,9 +1,9 @@
-export const QUERYUSUARIO = {
-  usuario: "usuario",
+export const QUERY_USER = {
   usuarios: "usuarios",
+  usuario: "usuario",
 };
 
-export const QUERYPACIENTE = {
-  paciente: "paciente",
-  pacientes: "pacientes",
+export const QUERY_NOTIFICATION = {
+  notificaciones: "notificaciones",
+  notificacion: "notificacion",
 };

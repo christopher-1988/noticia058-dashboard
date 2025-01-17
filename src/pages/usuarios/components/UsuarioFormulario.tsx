@@ -7,8 +7,6 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 //Model
 import { UserDataRow, ResponseNotificacion } from "@src/models";
-//Service
-import { postUsuario } from "@services/usuario.service";
 interface FormValues extends UserDataRow {
   password?: string;
   level?: string | number;
@@ -41,9 +39,11 @@ const UsuarioFormulario: React.FC<Props> = ({
     setSelection(null);
   };
   //Solicitud
+  /*
   const usuarioMutation = useMutation({
     mutationFn: postUsuario,
   });
+  */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (value: FormValues) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,22 +55,6 @@ const UsuarioFormulario: React.FC<Props> = ({
     form.append("password", value.password);
     form.append("phone", value.phone);
     form.append("state", value.state);
-    usuarioMutation.mutate(form, {
-      onSuccess: (rsp) => {
-        const { data, status } = rsp;
-        if (status >= 200 && status < 300) {
-          const { responseCode, message }: ResponseNotificacion = data;
-          if (responseCode === 1) {
-            toast.success(message);
-          } else if (responseCode === 2) {
-            toast.error(message);
-          }
-        }
-      },
-      onError: () => {
-        toast.error("Error en el servidor.");
-      },
-    });
   };
 
   useEffect(() => {
@@ -209,9 +193,9 @@ const UsuarioFormulario: React.FC<Props> = ({
                 <span className="text-dark">Cancelar</span>
               </Button>
               <Button variant="primary" type="submit">
-                {usuarioMutation.isPending && (
+                {/*usuarioMutation.isPending && (
                   <Spinner color="light" size="sm"></Spinner>
-                )}
+                )*/}
                 <span className="align-middle ms-25">Agregar usuario</span>
               </Button>
             </div>

@@ -6,8 +6,6 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 //Model
 import { UserDataRow, ResponseNotificacion } from "@src/models";
-//Service
-import { postUsuario } from "@services/usuario.service";
 interface FormValues extends UserDataRow {
   password?: string;
   level?: string | number;
@@ -32,16 +30,18 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
     reset();
   };
   //Solicitud
+  /*
   const usuarioMutation = useMutation({
-    mutationFn: postUsuario,
+    mutationFn: "",
   });
+  */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (value: FormValues) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const form: any = new FormData();
     form.append("op", "usuario");
     form.append("email", value.email);
-    usuarioMutation.mutate(form, {
+    /*usuarioMutation.mutate(form, {
       onSuccess: (rsp) => {
         const { data, status } = rsp;
         if (status >= 200 && status < 300) {
@@ -56,7 +56,7 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
       onError: () => {
         toast.error("Error en el servidor.");
       },
-    });
+    });*/
   };
 
   return (
@@ -118,9 +118,9 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
                 <span className="text-dark">Cancelar</span>
               </Button>
               <Button variant="primary" type="submit">
-                {usuarioMutation.isPending && (
+                {/*usuarioMutation.isPending && (
                   <Spinner color="light" size="sm"></Spinner>
-                )}
+                )*/}
                 <span className="align-middle ms-25">Enviar</span>
               </Button>
             </div>

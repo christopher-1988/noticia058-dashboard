@@ -9,6 +9,8 @@ import useAuth from "@src/@core/hooks/useAuth";
 import fondo from "@assets/images/pages/fondo.svg";
 //Model
 import { ResponseNotificacion } from "@src/models";
+//Service
+import { postUser } from "@src/services/usuario.service";
 //Style
 import "../../@core/scss/react/pages/page-authentication.scss";
 
@@ -18,7 +20,7 @@ type inputs = {
 };
 
 interface Response extends ResponseNotificacion {
-  item: Record<string, unknown> | undefined;
+  data: Record<string, unknown> | undefined;
 }
 
 const Login = () => {
@@ -26,17 +28,11 @@ const Login = () => {
   const { saveUser } = useAuth();
   const [process, setProcess] = useState(false);
 
-  const sesions = [
-    { user: "chistopher", password: "W>nn_9u3/7*A" },
-    { user: "noticia058@gmail.com", password: "123456" },
-  ];
-
-  // Y cambiar la condición a:
   const { value, handleSubmit, handleInput } = useForm({
-    email: "noticia058@gmail.com",
-    password: "123456",
+    email: "christopher.carnevale.p@gmail.com",
+    password: "clave",
   });
-
+  /*
   const onSubmit = async (value: inputs) => {
     setProcess(true);
 
@@ -78,8 +74,40 @@ const Login = () => {
     } finally {
       setProcess(false);
     }
-  };
+  };*/
 
+  const onSubmit = async (value: inputs) => {
+    setProcess(true);
+
+    if (value.email === "") {
+      toast.error("Agregue el correo.");
+      return;
+    }
+    if (value.password === "") {
+      toast.error("Agregue la contraseña.");
+      return;
+    }
+
+    try {
+      const form: any = new FormData();
+      form.append("op", "dologin");
+      form.append("correo", value.email.trim());
+      form.append("clave", value.password.trim());
+      const response = await postUser(form);
+      const { responseCode, message, data }: Response = response.data;
+      if (responseCode == 1) {
+        const sesion = { ...data, active: true };
+        saveUser(sesion);
+        history("/notificaciones", { replace: true });
+      } else {
+        toast.error(message);
+      }
+    } catch (error) {
+      console.error("Error:" + error);
+    } finally {
+      setProcess(false);
+    }
+  };
   return (
     <div
       className="auth-wrapper auth-cover"
