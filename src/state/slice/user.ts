@@ -14,6 +14,7 @@ export const initial: UserSession = {
   email: "",
   token: "",
   active: false,
+  role: 0,
 };
 
 export const userSlice = createSlice({
