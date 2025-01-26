@@ -46,7 +46,7 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
     form.append("op", "create");
     form.append("idCreador", session?.id ?? 0);
     form.append("titulo", value.title);
-    form.append("descripcion", value.title);
+    form.append("descripcion", value.description);
     mutation.mutate(form, {
       onSuccess: (rsp) => {
         const { data, status } = rsp;
