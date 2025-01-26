@@ -29,52 +29,9 @@ const Login = () => {
   const [process, setProcess] = useState(false);
 
   const { value, handleSubmit, handleInput } = useForm({
-    email: "christopher.carnevale.p@gmail.com",
-    password: "clave",
+    email: "alter.developing@gmail.com",
+    password: "",
   });
-  /*
-  const onSubmit = async (value: inputs) => {
-    setProcess(true);
-
-    if (value.email === "") {
-      toast.error("Agregue el correo.");
-      return;
-    }
-    if (value.password === "") {
-      toast.error("Agregue la contraseña.");
-      return;
-    }
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      const condicion = sesions.some((sesion) => {
-        let result = false;
-        result =
-          sesion.user === value.email && sesion.password === value.password;
-        return result;
-      });
-
-      if (condicion) {
-        const sesion = {
-          id: 1,
-          name: value.email,
-          email: value.email,
-          imagen: "",
-          token: "",
-          active: true,
-        };
-        saveUser(sesion);
-        history("/notificaciones", { replace: true });
-      } else {
-        alert("error");
-      }
-    } catch (error) {
-      console.error("Error:" + error);
-    } finally {
-      setProcess(false);
-    }
-  };*/
 
   const onSubmit = async (value: inputs) => {
     setProcess(true);
@@ -219,4 +176,47 @@ const Login = () => {
 };
 
 export default Login;
-//git remote add origin https://github.com/christopher-1988/noticia058-dashboard.git
+/*
+  const onSubmit = async (value: inputs) => {
+    setProcess(true);
+
+    if (value.email === "") {
+      toast.error("Agregue el correo.");
+      return;
+    }
+    if (value.password === "") {
+      toast.error("Agregue la contraseña.");
+      return;
+    }
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      const condicion = sesions.some((sesion) => {
+        let result = false;
+        result =
+          sesion.user === value.email && sesion.password === value.password;
+        return result;
+      });
+
+      if (condicion) {
+        const sesion = {
+          id: 1,
+          name: value.email,
+          email: value.email,
+          imagen: "",
+          token: "",
+          active: true,
+        };
+        saveUser(sesion);
+        history("/notificaciones", { replace: true });
+      } else {
+        alert("error");
+      }
+    } catch (error) {
+      console.error("Error:" + error);
+    } finally {
+      setProcess(false);
+    }
+  };
+  */

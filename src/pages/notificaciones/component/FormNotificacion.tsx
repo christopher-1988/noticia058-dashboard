@@ -12,6 +12,8 @@ import { FormCreate } from "../models/notification.model";
 import { ResponseNotificacion } from "@models/response.model";
 //Hook
 import { useFechingNotification } from "../hook/useNotification";
+//Context
+import useAuth from "@src/@core/hooks/useAuth";
 
 interface Props {
   state: boolean;
@@ -19,6 +21,7 @@ interface Props {
 }
 
 const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
+  const { session } = useAuth();
   //Solicitud
   const { invalidateNotification } = useFechingNotification();
   //Solicitud
@@ -41,7 +44,7 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
   const onSubmit = (value: FormCreate) => {
     const form: any = new FormData();
     form.append("op", "create");
-    form.append("idCreador", 0);
+    form.append("idCreador", session?.id ?? 0);
     form.append("titulo", value.title);
     form.append("descripcion", value.title);
     mutation.mutate(form, {
@@ -55,10 +58,17 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
           } else if (responseCode === 2) {
             toast.error(message);
           }
+          setTimeout(() => {
+            handleCloseAndReset();
+          }, 2000);
+        } else {
+          toast.error("Error en el servidor.");
+          handleCloseAndReset();
         }
       },
       onError: () => {
         toast.error("Error en el servidor.");
+        handleCloseAndReset();
       },
     });
   };
@@ -98,7 +108,8 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
               <Form.Label>Descripción</Form.Label>
               <Form.Control
                 isInvalid={errors.description ? true : false}
-                type="text"
+                as="textarea"
+                rows={3}
                 placeholder="Agregue descripción..."
                 {...register("description", { required: true, maxLength: 100 })}
               />

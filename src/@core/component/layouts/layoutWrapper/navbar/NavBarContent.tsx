@@ -3,13 +3,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Dropdown from "react-bootstrap/Dropdown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 //Component
 import { BottonDarkMode } from "../BottonDarkMode";
 import { Menu } from "react-feather";
 // image clinic
-import logoClinic from "@src/assets/images/logo-ejemplo.svg";
 import profilePic from "@src/assets/images/profile.png";
 import iconNotif from "@src/assets/sidebar/notification.svg";
 import iconSearch from "@src/assets/sidebar/search.svg";
@@ -27,6 +24,7 @@ interface Props {
 }
 
 const NavBarContent = ({ setMenuVisibility, setSkin, skin }: Props) => {
+  const history = useNavigate();
   const user = useSelector((state: AppStore) => state.auth);
 
   const { logout } = useAuth();
@@ -54,8 +52,6 @@ const NavBarContent = ({ setMenuVisibility, setSkin, skin }: Props) => {
       />
     )
   );
-
-  const history = useNavigate();
 
   const handleLogout = () => {
     logout();
@@ -85,14 +81,14 @@ const NavBarContent = ({ setMenuVisibility, setSkin, skin }: Props) => {
           <BottonDarkMode skin={skin} setSkin={setSkin} />
           <div className="user-items">
             {/* icon notification  */}
-            <img
+            {/*<img
               src={iconNotif}
               alt="icon-notifications"
               height={25}
               width={25}
-            />
+            />*/}
             {/* icon search */}
-            <img src={iconSearch} alt="icon-search" height={25} width={25} />
+            {/*<img src={iconSearch} alt="icon-search" height={25} width={25} />*/}
             <Dropdown drop="start">
               <Dropdown.Toggle
                 as={CustomToggle}
@@ -110,7 +106,8 @@ const NavBarContent = ({ setMenuVisibility, setSkin, skin }: Props) => {
                   <div style={{ display: "flex", flexDirection: "row" }}>
                     <div className="me-1">
                       <Avatar
-                        img={profilePic ?? ""}
+                        //img={profilePic ?? ""}
+                        img=""
                         imgHeight="40"
                         imgWidth="40"
                         status={user?.active ? "online" : "offline"}

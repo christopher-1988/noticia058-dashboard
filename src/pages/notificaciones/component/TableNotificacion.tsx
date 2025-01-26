@@ -1,25 +1,15 @@
 import { useState } from "react";
 import { TableColumn } from "react-data-table-component";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { Button, ButtonGroup } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-//Model
-import { UserDataRow } from "@src/models/user.model";
 //Component
 import { WrapperDataTable } from "@src/component/wrapper";
 //Hook
 import { useFechingNotification } from "../hook/useNotification";
 //Model
 import { RowNotificacion } from "../models/notification.model";
-//Data
-import { simulateApiCall } from "../helpers/data";
-//RowNotificacion
 interface Params {
   state: string;
   search: string;
 }
-
 interface Props {
   params: Params;
   setSelection: (params: RowNotificacion | null) => void;
