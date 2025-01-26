@@ -4,11 +4,9 @@ import {
   clearLocalStorage,
   persistLocalStorage,
   getLocalStorage,
-} from "../../helpers/helpers";
+} from "@src/helpers/helpers";
 
-export const userKey = "user-backoffice";
-
-const TOKEN_KEY = import.meta.env.TOKEN_KEY;
+export const USER_KEY = "user-crm";
 
 export const initial: UserSession = {
   id: 0,
@@ -20,23 +18,23 @@ export const initial: UserSession = {
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: getLocalStorage(userKey) ? getLocalStorage(userKey) : initial,
+  initialState: getLocalStorage(USER_KEY) ? getLocalStorage(USER_KEY) : initial,
   reducers: {
     createUser: (state, action) => {
       if (action.payload.token) {
-        localStorage.setItem(TOKEN_KEY, JSON.stringify(action.payload.token));
+        localStorage.setItem(USER_KEY, JSON.stringify(action.payload.token));
       }
 
-      persistLocalStorage<UserSession>(userKey, action.payload);
+      persistLocalStorage<UserSession>(USER_KEY, action.payload);
       return action.payload;
     },
     updateUser: (state, action) => {
       const result = { ...state, ...action.payload };
-      persistLocalStorage<UserSession>(userKey, result);
+      persistLocalStorage<UserSession>(USER_KEY, result);
       return result;
     },
     reset: () => {
-      clearLocalStorage(userKey);
+      clearLocalStorage(USER_KEY);
       return initial;
     },
   },

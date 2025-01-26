@@ -20,7 +20,7 @@ export const getNotifications = async ({ ...parameters }) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const postMessage = (form: any) =>
+export const postNotification = (form: any) =>
   service.post(ENPOINT.notification, form, {
     responseType: "json",
     headers: {

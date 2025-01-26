@@ -4,12 +4,14 @@ import { Button, Form, Offcanvas, Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+//Service
+import { postNotification } from "@src/services/notification.service";
+//Component
+import { FormCreate } from "../models/notification.model";
 //Model
-import { UserDataRow, ResponseNotificacion } from "@src/models";
-interface FormValues extends UserDataRow {
-  password?: string;
-  level?: string | number;
-}
+import { ResponseNotificacion } from "@models/response.model";
+//Hook
+import { useFechingNotification } from "../hook/useNotification";
 
 interface Props {
   state: boolean;
@@ -17,37 +19,39 @@ interface Props {
 }
 
 const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
+  //Solicitud
+  const { invalidateNotification } = useFechingNotification();
+  //Solicitud
+  const mutation = useMutation({
+    mutationFn: postNotification,
+  });
+
   const {
     register,
     handleSubmit,
     reset,
-    setValue,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormCreate>();
 
   const handleCloseAndReset = () => {
     handleToggle(false);
     reset();
   };
-  //Solicitud
-  /*
-  const usuarioMutation = useMutation({
-    mutationFn: "",
-  });
-  */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (value: FormValues) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  const onSubmit = (value: FormCreate) => {
     const form: any = new FormData();
-    form.append("op", "usuario");
-    form.append("email", value.email);
-    /*usuarioMutation.mutate(form, {
+    form.append("op", "create");
+    form.append("idCreador", 0);
+    form.append("titulo", value.title);
+    form.append("descripcion", value.title);
+    mutation.mutate(form, {
       onSuccess: (rsp) => {
         const { data, status } = rsp;
         if (status >= 200 && status < 300) {
           const { responseCode, message }: ResponseNotificacion = data;
           if (responseCode === 1) {
             toast.success(message);
+            invalidateNotification();
           } else if (responseCode === 2) {
             toast.error(message);
           }
@@ -56,7 +60,7 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
       onError: () => {
         toast.error("Error en el servidor.");
       },
-    });*/
+    });
   };
 
   return (
@@ -79,12 +83,12 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
             <Form.Group className="mb-1" controlId="name">
               <Form.Label>Titutlo</Form.Label>
               <Form.Control
-                isInvalid={errors.name ? true : false}
+                isInvalid={errors.title ? true : false}
                 type="text"
                 placeholder="Agregue titulo..."
-                {...register("name", { required: true, maxLength: 100 })}
+                {...register("title", { required: true, maxLength: 100 })}
               />
-              {errors.name && (
+              {errors.title && (
                 <Form.Text className="text-danger">
                   Este campo es requerido
                 </Form.Text>
@@ -93,12 +97,12 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
             <Form.Group className="mb-1" controlId="name">
               <Form.Label>Descripción</Form.Label>
               <Form.Control
-                isInvalid={errors.lastName ? true : false}
+                isInvalid={errors.description ? true : false}
                 type="text"
                 placeholder="Agregue descripción..."
-                {...register("lastName", { required: true, maxLength: 100 })}
+                {...register("description", { required: true, maxLength: 100 })}
               />
-              {errors.lastName && (
+              {errors.description && (
                 <Form.Text className="text-danger">
                   Este campo es requerido
                 </Form.Text>
@@ -118,9 +122,9 @@ const FormNotificacion: React.FC<Props> = ({ state, handleToggle }) => {
                 <span className="text-dark">Cancelar</span>
               </Button>
               <Button variant="primary" type="submit">
-                {/*usuarioMutation.isPending && (
+                {mutation.isPending && (
                   <Spinner color="light" size="sm"></Spinner>
-                )*/}
+                )}
                 <span className="align-middle ms-25">Enviar</span>
               </Button>
             </div>

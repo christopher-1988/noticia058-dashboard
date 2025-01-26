@@ -11,7 +11,7 @@ import { WrapperDataTable } from "@src/component/wrapper";
 //Hook
 import { useFechingNotification } from "../hook/useNotification";
 //Model
-import { RowNotificacion } from "@src/models/notificacion";
+import { RowNotificacion } from "../models/notification.model";
 //Data
 import { simulateApiCall } from "../helpers/data";
 //RowNotificacion
@@ -29,51 +29,24 @@ const TableNoticicacion: React.FC<Props> = ({ params, setSelection }) => {
   const [page, setPage] = useState<number>(1);
   const [countPerPage, setCountPerPage] = useState<number>(10);
   //Solicitud
-  /*const { data, isError, isLoading } = useQuery({
-    queryKey: ["usuarios", page, params],
-    queryFn: () => simulateApiCall({ page, ...params }),
-    placeholderData: keepPreviousData,
-  });*/
   const { data, isError, isLoading } = useFechingNotification();
+
   //Column
   const columns: TableColumn<RowNotificacion>[] = [
     {
       name: "Título",
-      selector: (row) => row.title,
+      selector: (row) => row.titulo,
     },
     {
       name: "Descripción",
-      selector: (row) => row.description,
+      selector: (row) => row.descripcion,
     },
     {
-      name: "Estado",
-      selector: (row) => row.state,
+      name: "Creado",
       cell: (row) => (
         <div>
-          {row.state === true ? (
-            <span className="active-badge">Envida</span>
-          ) : (
-            <span className="inactive-badge">Error enviada</span>
-          )}
+          <span className="active-badge">{row.create_at}</span>
         </div>
-      ),
-    },
-    {
-      name: "Acción",
-      cell: (row) => (
-        <ButtonGroup aria-label="Basic example">
-          <Button
-            variant="light"
-            onClick={() => {
-              setSelection(row);
-            }}
-          >
-            <FontAwesomeIcon icon={faPenToSquare} />
-          </Button>
-          <Button variant="light">
-            <FontAwesomeIcon icon={faTrash} />
-          </Button>
-        </ButtonGroup>
       ),
     },
   ];

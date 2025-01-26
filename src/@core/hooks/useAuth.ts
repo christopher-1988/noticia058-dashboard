@@ -1,10 +1,11 @@
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
 import { createUser, reset } from "@src/state/slice/user";
-const TOKEN_KEY = import.meta.env.TOKEN_KEY;
+import { AppStore } from "@src/state/store";
+
 export default function useAuth() {
   const dispatch = useDispatch();
+  const session = useSelector((state: AppStore) => state.auth);
 
   const saveUser = useCallback(
     (item: unknown) => {
@@ -16,11 +17,11 @@ export default function useAuth() {
 
   const logout = useCallback(() => {
     dispatch(reset());
-    localStorage.removeItem(TOKEN_KEY);
     // doLogout
   }, [dispatch]);
 
   return {
+    session,
     saveUser,
     logout,
   };

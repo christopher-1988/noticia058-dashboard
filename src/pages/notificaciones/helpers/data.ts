@@ -1,4 +1,4 @@
-import { RowNotificacion } from "@src/models/notificacion";
+import { RowNotificacion } from "@src/pages/notificaciones/models/notification.model";
 interface Params {
   page: number;
   limit?: number;
@@ -18,24 +18,15 @@ export const simulateApiCall = (
       const db: RowNotificacion[] = [
         {
           id: 1,
-          title: "notificacion uno",
-          description: "descripcion uno",
-          time: "",
-          state: false,
+          titulo: "notificacion uno",
+          descripcion: "descripcion uno",
+          create_at: "",
         },
         {
           id: 2,
-          title: "notificacion dos",
-          description: "descripcion dos",
-          time: "",
-          state: false,
-        },
-        {
-          id: 3,
-          title: "notificacion tres",
-          description: "descripcion tres",
-          time: "",
-          state: true,
+          titulo: "notificacion dos",
+          descripcion: "descripcion dos",
+          create_at: "",
         },
       ];
 
@@ -44,8 +35,8 @@ export const simulateApiCall = (
       // Filtra los usuarios si hay un término de búsqueda
       let filteredUsers = db.filter(
         (user) =>
-          user.title.toLowerCase().includes(search.toLowerCase()) ||
-          user.description.toLowerCase().includes(search.toLowerCase())
+          user.titulo.toLowerCase().includes(search.toLowerCase()) ||
+          user.descripcion.toLowerCase().includes(search.toLowerCase())
       );
 
       // Calcula el total de páginas

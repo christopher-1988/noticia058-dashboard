@@ -4,6 +4,7 @@ export interface User {
   lastName?: string;
   email: string;
   image?: string;
+  role: number;
 }
 
 export interface UserDataRow extends User {
