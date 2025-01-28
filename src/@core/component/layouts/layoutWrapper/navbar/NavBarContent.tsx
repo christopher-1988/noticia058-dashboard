@@ -128,17 +128,17 @@ const NavBarContent = ({ setMenuVisibility, setSkin, skin }: Props) => {
                   <User size={14} className="me-75" />
                   <span className="align-middle">Mi Perfil</span>
                 </Dropdown.Item>
-                <Dropdown.Item
+                {/*<Dropdown.Item
                   onClick={() => {
-                    // history(`/configuracion`, { state: { id: user.id } });
+               
                   }}
                   style={{ width: "100%" }}
                   className="border-bottom"
                 >
                   <Settings size={14} className="me-75" />
                   <span className="align-middle">Configuración</span>
-                </Dropdown.Item>
-                <Dropdown.Item
+                </Dropdown.Item>*/}
+                {/*<Dropdown.Item
                   onClick={() => {
                     // history(`/ayuda`);
                   }}
@@ -146,8 +146,8 @@ const NavBarContent = ({ setMenuVisibility, setSkin, skin }: Props) => {
                 >
                   <HelpCircle size={14} className="me-75" />
                   <span className="align-middle">Ayuda</span>
-                </Dropdown.Item>
-                <Dropdown.Item
+                </Dropdown.Item>*/}
+                {/*<Dropdown.Item
                   onClick={() => {
                     // history(`/faq`);
                   }}
@@ -156,7 +156,7 @@ const NavBarContent = ({ setMenuVisibility, setSkin, skin }: Props) => {
                 >
                   <Info size={14} className="me-75" />
                   <span className="align-middle">FAQ</span>
-                </Dropdown.Item>
+                </Dropdown.Item>*/}
                 <Dropdown.Item style={{ width: "100%" }} onClick={handleLogout}>
                   <LogOut size={14} className="me-75" />
                   <span className="align-middle">Cerrar sesión</span>

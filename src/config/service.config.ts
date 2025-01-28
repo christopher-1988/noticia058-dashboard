@@ -1,8 +1,8 @@
 import axio from "axios";
 
 const service = axio.create({
-  baseURL: "http://localhost/noticia058backend/",
-  //baseURL: "https://www.noticia058tv.com/noticia058backend/",
+  //baseURL: "http://localhost/noticia058backend/",
+  baseURL: "https://www.noticia058tv.com/noticia058backend/",
 });
 
 // Interceptor de solicitudes
