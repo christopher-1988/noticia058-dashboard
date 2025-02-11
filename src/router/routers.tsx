@@ -11,6 +11,8 @@ const Notifiaciones = lazy(
   () => import("../pages/notificaciones/notificacion.tsx")
 );
 
+const Terminos = lazy(() => import("../pages/terminos/terminos.tsx"));
+
 function Routers() {
   return (
     <>
@@ -18,6 +20,7 @@ function Routers() {
         <Routes>
           <Route path="/" element={<Navigate to="notificaciones" />} />
           <Route path="login" element={<Login />} />
+          <Route path="terminos" element={<Terminos />} />
           <Route element={<AuthGuard />}>
             <Route element={<WrapperVerticalLayout />}>
               <Route path="/" element={<Navigate to="/notificaciones" />} />
